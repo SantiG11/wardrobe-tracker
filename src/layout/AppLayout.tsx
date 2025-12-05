@@ -16,14 +16,14 @@ export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
-      <header className="border-b border-slate-800 bg-slate-900/60 backdrop-blur">
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="border-b border-border bg-card/60 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <span className="text-lg font-semibold tracking-tight">
               Virtual Wardrobe
             </span>
-            <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-300">
+            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
               MVP
             </span>
           </div>
@@ -40,8 +40,8 @@ export function AppLayout({ children }: AppLayoutProps) {
                   to={link.to}
                   className={cn(
                     "rounded-full px-3 py-1 transition-colors",
-                    "text-slate-300 hover:text-slate-50 hover:bg-slate-800",
-                    isActive && "bg-slate-800 text-slate-50",
+                    "text-muted-foreground hover:text-foreground hover:bg-muted",
+                    isActive && "bg-muted text-foreground",
                   )}
                 >
                   {link.label}
