@@ -10,7 +10,10 @@ export type ClothingCategory =
   | "accessory"
   | "other";
 
-export type YearsOfUse = "-1 year" | "1-3 years" | "+3 years";
+export type YearsOfUse =
+  | "less-than-a-year"
+  | "one-to-three-years"
+  | "more-than-three-years";
 
 export type HexColor = string;
 

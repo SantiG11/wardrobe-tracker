@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   clothingCategories,
   clothingFormSchema,
+  yearsOfUseLabelMap,
   type ClothingFormValues,
 } from "./clothingSchema";
 import {
@@ -41,7 +42,7 @@ export function ClothingFormDialog() {
       name: "",
       category: "",
       status: "clean",
-      yearsOfUse: "-1 year",
+      yearsOfUse: "less-than-a-year",
       tagsText: "",
       color: "#000000",
       notes: "",
@@ -147,6 +148,38 @@ export function ClothingFormDialog() {
                 </FormItem>
               )}
             />
+
+            {/* Years of use */}
+            <FormField
+              control={form.control}
+              name="yearsOfUse"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Years of use</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select years of use" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.entries(yearsOfUseLabelMap).map(
+                          ([value, label]) => (
+                            <SelectItem key={value} value={value}>
+                              {label}
+                            </SelectItem>
+                          ),
+                        )}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             {/* Tags */}
             <FormField
               control={form.control}

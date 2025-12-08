@@ -1,11 +1,22 @@
 import type { ClothingCategory, YearsOfUse } from "@/types/wardrobe";
 import { z } from "zod";
 
-export const yearsOfUseOptions: { value: YearsOfUse; label: string }[] = [
-  { value: "-1 year", label: "Less than a year" },
-  { value: "1-3 years", label: "1 to 3 years" },
-  { value: "+3 years", label: "More than 3 years" },
-];
+export const yearsOfUseLabelMap: Record<YearsOfUse, string> = {
+  "less-than-a-year": "Less than a year",
+  "one-to-three-years": "1 to 3 years",
+  "more-than-three-years": "More than 3 years",
+};
+
+export const clothingCategoryLabelMap: Record<ClothingCategory, string> = {
+  tshirt: "T-Shirt",
+  shirt: "Shirt",
+  pants: "Pants",
+  shorts: "Shorts",
+  jacket: "Jacket",
+  shoes: "Shoes",
+  accessory: "Accessory",
+  other: "Other",
+};
 
 export const clothingCategories: { value: ClothingCategory; label: string }[] =
   [
@@ -23,7 +34,11 @@ export const clothingFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   category: z.string().min(1, "Category is required"),
   status: z.enum(["clean", "dirty"]),
-  yearsOfUse: z.enum(["-1 year", "1-3 years", "+3 years"] as const),
+  yearsOfUse: z.enum([
+    "less-than-a-year",
+    "one-to-three-years",
+    "more-than-three-years",
+  ] as const),
   tagsText: z.string().optional(),
   color: z.string().min(1).default("#000000"),
   notes: z.string().optional(),
