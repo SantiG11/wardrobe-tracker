@@ -113,7 +113,7 @@ function WardrobePage() {
           </p>
         </div>
 
-        <ClothingFormDialog />
+        <ClothingFormDialog mode="create" />
       </div>
 
       <WardrobeFilters

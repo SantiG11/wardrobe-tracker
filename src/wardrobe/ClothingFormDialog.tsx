@@ -32,22 +32,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import type { ClothingItem } from "@/types/wardrobe";
+import { useState } from "react";
 
-export function ClothingFormDialog() {
-  const { addItem } = useWardrobe();
+type Mode = "create" | "edit";
 
-  const form = useForm({
+interface ClothingFormDialogProps {
+  mode: Mode;
+  item?: ClothingItem;
+}
+
+export function ClothingFormDialog({ mode, item }: ClothingFormDialogProps) {
+  const { addItem, updateItem } = useWardrobe();
+  const [open, setOpen] = useState(false);
+
+  const form = useForm<ClothingFormValues, any, ClothingFormValues>({
     resolver: zodResolver(clothingFormSchema),
     defaultValues: {
-      name: "",
-      category: "",
-      status: "clean",
-      yearsOfUse: "less-than-a-year",
-      tagsText: "",
-      color: "#000000",
-      notes: "",
+      name: item?.name ?? "",
+      category: item?.category ?? "",
+      status: item?.status ?? "clean",
+      yearsOfUse: item?.yearsOfUse ?? "less-than-a-year",
+      tagsText: item?.tags.join(", ") ?? "",
+      color: item?.colors[0] ?? "#000000",
+      notes: item?.notes ?? "",
     },
-  } as const);
+  });
+
+  const title = mode === "create" ? "Add clothing item" : "Edit clothing item";
+  const triggerLabel = mode === "create" ? "Add clothing" : "Edit";
 
   const onSubmit = (values: ClothingFormValues) => {
     const tags =
@@ -56,28 +69,55 @@ export function ClothingFormDialog() {
         .map((tag) => tag.trim())
         .filter(Boolean) ?? [];
 
-    addItem({
-      id: crypto.randomUUID(),
+    const baseData = {
       name: values.name,
-      category: values.category as any,
+      category: values.category,
       status: values.status,
       yearsOfUse: values.yearsOfUse,
       tags,
       colors: [values.color],
       notes: values.notes,
-    });
+    };
+
+    if (mode === "create") {
+      addItem({
+        id: crypto.randomUUID(),
+        ...baseData,
+        category: values.category as any,
+      });
+    } else if (mode === "edit" && item) {
+      updateItem(item.id, { ...baseData, category: values.category as any });
+    }
 
     form.reset();
+    setOpen(false);
+  };
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    setOpen(nextOpen);
+    if (nextOpen && mode === "edit" && item) {
+      form.reset({
+        name: item.name,
+        category: item.category,
+        status: item.status,
+        yearsOfUse: item.yearsOfUse,
+        tagsText: item.tags.join(", "),
+        color: item.colors[0] ?? "#000000",
+        notes: item.notes ?? "",
+      });
+    }
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button size="sm">Add Clothing</Button>
+        <Button size="sm" variant={mode === "create" ? "default" : "ghost"}>
+          {triggerLabel}
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Add Clothing Item</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -237,7 +277,7 @@ export function ClothingFormDialog() {
 
             <div className="flex justify-end gap-2 pt-2">
               <Button type="submit" size="sm">
-                Save item
+                {mode === "create" ? "Save item" : "Save changes"}
               </Button>
             </div>
           </form>

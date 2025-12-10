@@ -12,6 +12,7 @@ import type { ClothingItem } from "@/types/wardrobe";
 import { clothingCategoryLabelMap, yearsOfUseLabelMap } from "./clothingSchema";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ClothingFormDialog } from "./ClothingFormDialog";
 
 interface WardrobeTableProps {
   items: ClothingItem[];
@@ -89,14 +90,17 @@ export function WardrobeTable({ items, onDelete }: WardrobeTableProps) {
               </TableCell>
 
               <TableCell className="text-right">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-muted-foreground hover:text-destructive"
-                  onClick={() => onDelete(item.id)}
-                >
-                  Delete
-                </Button>
+                <div className="flex justify-end gap-2">
+                  <ClothingFormDialog mode="edit" item={item} />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-xs text-muted-foreground hover:text-destructive"
+                    onClick={() => onDelete(item.id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           ))}
