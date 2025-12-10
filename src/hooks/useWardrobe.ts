@@ -11,7 +11,7 @@ const initialWardrobe: ClothingItem[] = [
     tags: ["basic", "cotton"],
     colors: ["#000000"],
     status: "clean",
-    yearsOfUse: "1-3 years",
+    yearsOfUse: "one-to-three-years",
   },
   {
     id: "2",
@@ -20,7 +20,7 @@ const initialWardrobe: ClothingItem[] = [
     tags: ["sporty"],
     colors: ["#1d4ed8"],
     status: "dirty",
-    yearsOfUse: "-1 year",
+    yearsOfUse: "less-than-a-year",
   },
 ];
 

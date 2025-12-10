@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { useWardrobe } from "@/hooks/useWardrobe";
-import { WardrobeTable } from "@/wardrobe/WardrobeTable";
-import { WardrobeFilters } from "@/wardrobe/WardrobeFilters";
-import { ClothingFormDialog } from "@/wardrobe/ClothingFormDialog";
+import { WardrobeTable } from "@/features/wardrobe/WardrobeTable";
+import { WardrobeFilters } from "@/features/wardrobe/WardrobeFilters";
+import { ClothingFormDialog } from "@/features/wardrobe/ClothingFormDialog";
 import type {
   ClothingCategory,
   ClothingStatus,
