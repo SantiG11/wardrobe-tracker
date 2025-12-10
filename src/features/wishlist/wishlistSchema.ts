@@ -3,7 +3,7 @@ import z from "zod";
 
 export const priorityOptions: { value: WhishlistPriority; label: string }[] = [
   { value: "low", label: "Low" },
-  { value: "medium", label: "Low" },
+  { value: "medium", label: "Medium" },
   { value: "high", label: "High" },
 ];
 
