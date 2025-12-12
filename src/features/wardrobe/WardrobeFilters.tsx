@@ -48,7 +48,7 @@ export function WardrobeFilters({
 }: WardrobeFiltersProps) {
   return (
     <div className="flex flex-col gap-3 rounded-lg border border-border bg-card/40 p-3 text-sm md:flex-row md:items-center md:justify-between">
-      <div className="fkex fkex-col gap-2 md:flex-row md:gap-3">
+      <div className="flex flex-col w-full max-w-[320px] gap-2 ">
         <Input
           placeholder="Search by name..."
           value={search}
@@ -63,7 +63,7 @@ export function WardrobeFilters({
         />
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 md:justify-between">
+      <div className="flex flex-wrap items-center justify-end gap-2 ">
         <div className="flex flex-wrap items-center gap-2">
           <Select
             value={category}
@@ -131,7 +131,7 @@ export function WardrobeFilters({
         <Button
           variant="ghost"
           size="sm"
-          className="h-9 text-xs text-muted-foreground"
+          className="h-9 text-xs text-muted-foreground ml-auto"
           onClick={onClear}
         >
           Reset filters

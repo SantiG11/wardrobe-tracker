@@ -1,22 +1,24 @@
-import { useWishlist } from "@/hooks/useWishList";
-import type { WishlistItem } from "@/types/wardrobe";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
+  wishlistFormSchema,
   priorityOptions,
   statusOptions,
-  wishlistFormSchema,
   type WishlistFormValues,
 } from "./wishlistSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
+
+import type { WishlistItem } from "@/types/wardrobe";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { DialogContent } from "@radix-ui/react-dialog";
 import {
   Form,
   FormControl,
@@ -33,8 +35,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useWishlist } from "@/hooks/useWishList";
 
 type Mode = "create" | "edit";
+
 interface WishlistFormDialogProps {
   mode: Mode;
   item?: WishlistItem;
@@ -50,25 +54,53 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
       name: item?.name ?? "",
       link: item?.link ?? "",
       estimatedPrice: item?.estimatedPrice,
-      tagsText: item?.tags.join(", ") ?? "",
       priority: item?.priority ?? "medium",
       status: item?.status ?? "pending",
+      tagsText: item?.tags.join(", ") ?? "",
     },
   });
 
   const title = mode === "create" ? "Add wishlist item" : "Edit wishlist item";
   const triggerLabel = mode === "create" ? "Add item" : "Edit";
 
+  const handleOpenChange = (nextOpen: boolean) => {
+    setOpen(nextOpen);
+
+    // Sync form with item each time you open in edit mode
+    if (nextOpen && mode === "edit" && item) {
+      form.reset({
+        name: item.name,
+        link: item.link ?? "",
+        estimatedPrice: item.estimatedPrice,
+        priority: item.priority,
+        status: item.status,
+        tagsText: item.tags.join(", "),
+      });
+    }
+
+    // Optional: if opening create, ensure it’s clean
+    if (nextOpen && mode === "create") {
+      form.reset({
+        name: "",
+        link: "",
+        estimatedPrice: undefined,
+        priority: "medium",
+        status: "pending",
+        tagsText: "",
+      });
+    }
+  };
+
   const onSubmit = (values: WishlistFormValues) => {
     const tags =
       values.tagsText
         ?.split(",")
-        .map((tag) => tag.trim())
+        .map((t) => t.trim())
         .filter(Boolean) ?? [];
 
     const baseData: Omit<WishlistItem, "id"> = {
       name: values.name,
-      link: values.link,
+      link: values.link || undefined,
       estimatedPrice: values.estimatedPrice,
       tags,
       priority: values.priority,
@@ -76,31 +108,13 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
     };
 
     if (mode === "create") {
-      addItem({
-        id: crypto.randomUUID(),
-        ...baseData,
-      });
+      addItem({ id: crypto.randomUUID(), ...baseData });
     } else if (mode === "edit" && item) {
       updateItem(item.id, baseData);
     }
 
     form.reset();
     setOpen(false);
-  };
-
-  const handleOpenChange = (nextOpen: boolean) => {
-    setOpen(nextOpen);
-
-    if (nextOpen && mode === "edit" && item) {
-      form.reset({
-        name: item.name,
-        link: item.link ?? "",
-        estimatedPrice: item.estimatedPrice,
-        tagsText: item.tags.join(", "),
-        priority: item.priority,
-        status: item.status,
-      });
-    }
   };
 
   return (
@@ -110,6 +124,7 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
           {triggerLabel}
         </Button>
       </DialogTrigger>
+
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
@@ -117,6 +132,7 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {/* Name */}
             <FormField
               control={form.control}
               name="name"
@@ -131,6 +147,7 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
               )}
             />
 
+            {/* Link */}
             <FormField
               control={form.control}
               name="link"
@@ -148,6 +165,7 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
               )}
             />
 
+            {/* Estimated price */}
             <FormField
               control={form.control}
               name="estimatedPrice"
@@ -169,20 +187,7 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="tagsText"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tags (optional)</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shoes, casual, running" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+            {/* Priority */}
             <FormField
               control={form.control}
               name="priority"
@@ -211,6 +216,7 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
               )}
             />
 
+            {/* Status */}
             <FormField
               control={form.control}
               name="status"
@@ -233,6 +239,21 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
                         ))}
                       </SelectContent>
                     </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Tags */}
+            <FormField
+              control={form.control}
+              name="tagsText"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tags (optional)</FormLabel>
+                  <FormControl>
+                    <Input placeholder="shoes, casual, running" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

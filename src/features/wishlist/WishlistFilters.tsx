@@ -1,21 +1,21 @@
+import { priorityOptions, statusOptions } from "./wishlistSchema";
 import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
+  SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { WhishlistPriority } from "@/types/wardrobe";
-import { SelectTrigger } from "@radix-ui/react-select";
-import { priorityOptions, statusOptions } from "./wishlistSchema";
 import { Button } from "@/components/ui/button";
+import type { WhishlistPriority } from "@/types/wardrobe";
 
 type StatusFilter = "all" | "pending" | "bought";
 type PriorityFilter = "all" | WhishlistPriority;
 type SortKey = "name" | "priority" | "status" | "estimatedPrice";
 type SortDirection = "asc" | "desc";
 
-interface WhishlistFiltersProps {
+interface WishlistFiltersProps {
   search: string;
   tagSearch: string;
   status: StatusFilter;
@@ -31,24 +31,26 @@ interface WhishlistFiltersProps {
   onClear: () => void;
 }
 
-export function WishlistFilters({
-  search,
-  tagSearch,
-  status,
-  priority,
-  sortKey,
-  sortDirection,
-  onSearchChange,
-  onTagSearchChange,
-  onStatusChange,
-  onPriorityChange,
-  onSortKeyChange,
-  onSortDirectionChange,
-  onClear,
-}: WhishlistFiltersProps) {
+export function WishlistFilters(props: WishlistFiltersProps) {
+  const {
+    search,
+    tagSearch,
+    status,
+    priority,
+    sortKey,
+    sortDirection,
+    onSearchChange,
+    onTagSearchChange,
+    onStatusChange,
+    onPriorityChange,
+    onSortKeyChange,
+    onSortDirectionChange,
+    onClear,
+  } = props;
+
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-border bg-card/40 p-3 text-sm md:gap-2">
-      <div className="flex flex-col gap-2 md:flex-row md:gap-3">
+    <div className="flex flex-col gap-3 rounded-lg border border-border bg-card/40 p-3 text-sm md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col w-full max-w-[320px] gap-2">
         <Input
           placeholder="Search by name..."
           value={search}
@@ -56,14 +58,15 @@ export function WishlistFilters({
           className="h-9 md:max-w-xs"
         />
         <Input
-          placeholder="Filter by tags (e.g. shoes, casual)"
+          placeholder="Filter by tags..."
           value={tagSearch}
           onChange={(e) => onTagSearchChange(e.target.value)}
           className="h-9 md:max-w-xs"
         />
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 md:justify-between">
+      {/* Row 2: filters + sorting + reset */}
+      <div className="flex flex-wrap items-center justify-end gap-2 ">
         <div className="flex flex-wrap items-center gap-2">
           <Select
             value={priority}
@@ -130,16 +133,15 @@ export function WishlistFilters({
               <SelectItem value="desc">Desc</SelectItem>
             </SelectContent>
           </Select>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-9 text-xs text-muted-foreground"
-            onClick={onClear}
-          >
-            Reset filters
-          </Button>
         </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-9 text-xs text-muted-foreground"
+          onClick={onClear}
+        >
+          Reset filters
+        </Button>
       </div>
     </div>
   );
