@@ -47,7 +47,7 @@ export function WardrobeFilters({
   onClear,
 }: WardrobeFiltersProps) {
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-border bg-card/40 p-3 text-sm md:flex-row md:items-center md:justify-between">
+    <div className="flex flex-col gap-3 rounded-lg border border-border bg-card/40 p-3 text-sm  md:flex-row md:items-center md:justify-between">
       <div className="flex flex-col w-full max-w-[320px] gap-2 ">
         <Input
           placeholder="Search by name..."
@@ -89,7 +89,7 @@ export function WardrobeFilters({
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="all">All Status</SelectItem>
               <SelectItem value="clean">Clean</SelectItem>
               <SelectItem value="dirty">Dirty</SelectItem>
             </SelectContent>

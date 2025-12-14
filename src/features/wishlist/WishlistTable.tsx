@@ -11,13 +11,24 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { WishlistFormDialog } from "./WishlistFormDialog";
+import { ConfirmDeleteDialog } from "@/components/ConfirmDeleteDialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface WishlistTableProps {
   items: WishlistItem[];
   onDelete: (id: string) => void;
+  onToggleStatus: (id: string) => void;
 }
 
-export function WishlistTable({ items, onDelete }: WishlistTableProps) {
+export function WishlistTable({
+  items,
+  onDelete,
+  onToggleStatus,
+}: WishlistTableProps) {
   if (items.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -39,15 +50,14 @@ export function WishlistTable({ items, onDelete }: WishlistTableProps) {
             <TableHead>Priority</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Tags</TableHead>
-            <TableHead className="text-right">Est. price</TableHead>
-            <TableHead className="w-[1%] text-right">Actions</TableHead>
+            <TableHead className="text-center">Est. price</TableHead>
+            <TableHead className="w-[1%] text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
           {items.map((item) => (
             <TableRow key={item.id} className="border-border">
-              {/* Name + optional link */}
               <TableCell className="font-medium">
                 <div className="flex flex-col">
                   <span>{item.name}</span>
@@ -64,24 +74,28 @@ export function WishlistTable({ items, onDelete }: WishlistTableProps) {
                 </div>
               </TableCell>
 
-              {/* Priority */}
               <TableCell>
                 <Badge variant="outline" className="text-xs">
                   {item.priority}
                 </Badge>
               </TableCell>
 
-              {/* Status */}
               <TableCell>
-                <Badge
-                  variant={item.status === "bought" ? "outline" : "secondary"}
-                  className="text-xs"
-                >
-                  {item.status}
-                </Badge>
+                <Tooltip>
+                  <TooltipTrigger onClick={() => onToggleStatus(item.id)}>
+                    <Badge
+                      variant={
+                        item.status === "bought" ? "outline" : "secondary"
+                      }
+                      className="text-xs hover:cursor-pointer"
+                    >
+                      {item.status}
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent>Change status</TooltipContent>
+                </Tooltip>
               </TableCell>
 
-              {/* Tags */}
               <TableCell>
                 {item.tags.length > 0 ? (
                   <div className="flex flex-wrap gap-1">
@@ -104,8 +118,7 @@ export function WishlistTable({ items, onDelete }: WishlistTableProps) {
                 )}
               </TableCell>
 
-              {/* Estimated price */}
-              <TableCell className="text-right">
+              <TableCell className="text-center">
                 <span className="text-xs text-foreground/80">
                   {item.estimatedPrice !== undefined
                     ? `$${item.estimatedPrice}`
@@ -113,18 +126,23 @@ export function WishlistTable({ items, onDelete }: WishlistTableProps) {
                 </span>
               </TableCell>
 
-              {/* Actions */}
               <TableCell className="text-right">
                 <div className="flex justify-end gap-2">
                   <WishlistFormDialog mode="edit" item={item} />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-xs text-muted-foreground hover:text-destructive"
-                    onClick={() => onDelete(item.id)}
-                  >
-                    Delete
-                  </Button>
+                  <ConfirmDeleteDialog
+                    title="Delete wishlist item?"
+                    description="This item will be permanently removed from your wishlist."
+                    onConfirm={() => onDelete(item.id)}
+                    trigger={
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-xs text-muted-foreground hover:text-destructive"
+                      >
+                        Delete
+                      </Button>
+                    }
+                  />
                 </div>
               </TableCell>
             </TableRow>

@@ -17,7 +17,7 @@ const priorityOrder: Record<WhishlistPriority, number> = {
 };
 
 function WishlistPage() {
-  const { items, deleteItem } = useWishlist();
+  const { items, deleteItem, toggleStatus } = useWishlist();
 
   const [search, setSearch] = useState("");
   const [tagSearch, setTagSearch] = useState("");
@@ -101,7 +101,6 @@ function WishlistPage() {
 
   return (
     <div className="space-y-4">
-      {/* Header (same structure as Wardrobe) */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Wishlist</h1>
@@ -113,7 +112,6 @@ function WishlistPage() {
         <WishlistFormDialog mode="create" />
       </div>
 
-      {/* Filters (same layout style as Wardrobe) */}
       <WishlistFilters
         search={search}
         tagSearch={tagSearch}
@@ -130,8 +128,11 @@ function WishlistPage() {
         onClear={handleClearFilters}
       />
 
-      {/* Table (same visual language as Wardrobe table) */}
-      <WishlistTable items={filteredAndSortedItems} onDelete={deleteItem} />
+      <WishlistTable
+        items={filteredAndSortedItems}
+        onDelete={deleteItem}
+        onToggleStatus={toggleStatus}
+      />
     </div>
   );
 }

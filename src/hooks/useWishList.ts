@@ -43,10 +43,24 @@ export function useWishlist() {
     setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const toggleStatus = (id: string) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              status: item.status === "pending" ? "bought" : "pending",
+            }
+          : item,
+      ),
+    );
+  };
+
   return {
     items,
     addItem,
     updateItem,
     deleteItem,
+    toggleStatus,
   };
 }

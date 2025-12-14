@@ -21,7 +21,7 @@ const yearsOfUseOrder: Record<YearsOfUse, number> = {
 };
 
 function WardrobePage() {
-  const { items, deleteItem } = useWardrobe();
+  const { items, deleteItem, toggleStatus } = useWardrobe();
 
   const [search, setSearch] = useState("");
   const [tagSearch, setTagSearch] = useState("");
@@ -132,7 +132,11 @@ function WardrobePage() {
         onClear={handleClearFilters}
       />
 
-      <WardrobeTable items={filteredAndSortedItems} onDelete={deleteItem} />
+      <WardrobeTable
+        items={filteredAndSortedItems}
+        onDelete={deleteItem}
+        onToggleStatus={toggleStatus}
+      />
     </div>
   );
 }

@@ -13,13 +13,24 @@ import { clothingCategoryLabelMap, yearsOfUseLabelMap } from "./clothingSchema";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ClothingFormDialog } from "./ClothingFormDialog";
+import { ConfirmDeleteDialog } from "@/components/ConfirmDeleteDialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface WardrobeTableProps {
   items: ClothingItem[];
   onDelete: (id: string) => void;
+  onToggleStatus: (id: string) => void;
 }
 
-export function WardrobeTable({ items, onDelete }: WardrobeTableProps) {
+export function WardrobeTable({
+  items,
+  onDelete,
+  onToggleStatus,
+}: WardrobeTableProps) {
   if (items.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -36,12 +47,12 @@ export function WardrobeTable({ items, onDelete }: WardrobeTableProps) {
         </TableCaption>
         <TableHeader>
           <TableRow className="border-border">
-            <TableHead className="w-[30%]">Name</TableHead>
+            <TableHead className="w-[20%]">Name</TableHead>
             <TableHead>Category</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Years of use</TableHead>
             <TableHead>Colors</TableHead>
-            <TableHead className="w-[1%] text-right">Actions</TableHead>
+            <TableHead className="w-[1%] text-center">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -50,22 +61,29 @@ export function WardrobeTable({ items, onDelete }: WardrobeTableProps) {
               <TableCell className="font-medium">{item.name}</TableCell>
 
               <TableCell className="font-medium">
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs md:text-sm text-muted-foreground">
                   {clothingCategoryLabelMap[item.category]}
                 </span>
               </TableCell>
 
               <TableCell>
-                <Badge
-                  variant={item.status === "clean" ? "outline" : "destructive"}
-                  className="text-xs"
-                >
-                  {item.status === "clean" ? "Clean" : "Dirty"}
-                </Badge>
+                <Tooltip>
+                  <TooltipTrigger onClick={() => onToggleStatus(item.id)}>
+                    <Badge
+                      variant={
+                        item.status === "clean" ? "outline" : "destructive"
+                      }
+                      className="text-xs hover:cursor-pointer"
+                    >
+                      {item.status === "clean" ? "Clean" : "Dirty"}
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent>Change status</TooltipContent>
+                </Tooltip>
               </TableCell>
 
               <TableCell>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs md:text-sm text-muted-foreground">
                   {yearsOfUseLabelMap[item.yearsOfUse]}
                 </span>
               </TableCell>
@@ -92,14 +110,20 @@ export function WardrobeTable({ items, onDelete }: WardrobeTableProps) {
               <TableCell className="text-right">
                 <div className="flex justify-end gap-2">
                   <ClothingFormDialog mode="edit" item={item} />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-xs text-muted-foreground hover:text-destructive"
-                    onClick={() => onDelete(item.id)}
-                  >
-                    Delete
-                  </Button>
+                  <ConfirmDeleteDialog
+                    title="Delete clothing item?"
+                    description="This item will be permanently removed from your wardrobe."
+                    onConfirm={() => onDelete(item.id)}
+                    trigger={
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-xs text-muted-foreground hover:text-destructive"
+                      >
+                        Delete
+                      </Button>
+                    }
+                  />
                 </div>
               </TableCell>
             </TableRow>

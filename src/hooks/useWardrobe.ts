@@ -44,5 +44,18 @@ export function useWardrobe() {
     setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  return { items, addItem, updateItem, deleteItem };
+  const toggleStatus = (id: string) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              status: item.status === "clean" ? "dirty" : "clean",
+            }
+          : item,
+      ),
+    );
+  };
+
+  return { items, addItem, updateItem, deleteItem, toggleStatus };
 }
