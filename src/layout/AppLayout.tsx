@@ -1,6 +1,7 @@
+import MobileNav from "@/components/MobileNav";
+import NavBar from "@/components/NavBar";
+import useIsMobile from "@/hooks/isMobile";
 import type { ReactNode } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -13,10 +14,10 @@ const navLinks = [
 ];
 
 export function AppLayout({ children }: AppLayoutProps) {
-  const location = useLocation();
+  const isMobile = useIsMobile();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="w-full bg-background text-foreground">
       <header className="border-b border-border bg-card/60 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
           <div className="flex items-center gap-2">
@@ -27,32 +28,17 @@ export function AppLayout({ children }: AppLayoutProps) {
               MVP
             </span>
           </div>
-
-          <nav className="flex items-center gap-4 text-sm">
-            {navLinks.map((link) => {
-              const isActive =
-                location.pathname === link.to ||
-                (link.to !== "/" && location.pathname.startsWith(link.to));
-
-              return (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={cn(
-                    "rounded-full px-3 py-1 transition-colors",
-                    "text-muted-foreground hover:text-foreground hover:bg-muted",
-                    isActive && "bg-muted text-foreground",
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </nav>
+          {isMobile ? (
+            <MobileNav navLinks={navLinks} />
+          ) : (
+            <NavBar navLinks={navLinks} />
+          )}
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-4 pb-10 pt-6">{children}</main>
+      <main className="mx-auto max-w-5xl px-4 pb-10 pt-5 sm:px-6 sm:pt-6">
+        {children}
+      </main>
     </div>
   );
 }

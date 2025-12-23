@@ -47,8 +47,8 @@ export function WardrobeFilters({
   onClear,
 }: WardrobeFiltersProps) {
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-border bg-card/40 p-3 text-sm  md:flex-row md:items-center md:justify-between">
-      <div className="flex flex-col w-full max-w-[320px] gap-2 ">
+    <div className="flex flex-col ap-3 rounded-lg border border-border bg-card/40 p-3 text-sm  md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col w-full md:max-w-[320px] gap-2 ">
         <Input
           placeholder="Search by name..."
           value={search}
@@ -63,13 +63,13 @@ export function WardrobeFilters({
         />
       </div>
 
-      <div className="flex flex-wrap items-center justify-end gap-2 ">
+      <div className="grid gap-2 sm:grid-cols-2 lg:flex lg:items-center lg:justify-between">
         <div className="flex flex-wrap items-center gap-2">
           <Select
             value={category}
             onValueChange={(value) => onCategoryChange(value as CategoryFilter)}
           >
-            <SelectTrigger className="h-9 w-[150px]">
+            <SelectTrigger className="h-9 w-full sm:w-[150px]">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
@@ -85,7 +85,7 @@ export function WardrobeFilters({
             value={status}
             onValueChange={(value) => onStatusChange(value as StatusFilter)}
           >
-            <SelectTrigger className="h-9 w-[130px]">
+            <SelectTrigger className="h-9 w-full sm:w-[130px]">
               <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
@@ -96,12 +96,12 @@ export function WardrobeFilters({
           </Select>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 lg:justify-end">
           <Select
             value={sortKey}
             onValueChange={(value) => onSortKeyChange(value as SortKey)}
           >
-            <SelectTrigger className="h-9 w-[150px]">
+            <SelectTrigger className="h-9 w-full sm:w-[150px]">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
@@ -118,7 +118,7 @@ export function WardrobeFilters({
               onSortDirectionChange(value as SortDirection)
             }
           >
-            <SelectTrigger className="h-9 w-[110px]">
+            <SelectTrigger className="h-9 w-full sm:w-[110px]">
               <SelectValue placeholder="Order" />
             </SelectTrigger>
             <SelectContent>
