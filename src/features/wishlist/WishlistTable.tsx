@@ -39,116 +39,118 @@ export function WishlistTable({
 
   return (
     <div className="overflow-x-auto rounded-lg border border-border bg-card/60">
-      <Table>
-        <TableCaption className="text-xs text-muted-foreground">
-          Your wishlist items.
-        </TableCaption>
+      <div className="min-w-[900px]">
+        <Table>
+          <TableCaption className="text-xs text-muted-foreground">
+            Your wishlist items.
+          </TableCaption>
 
-        <TableHeader>
-          <TableRow className="border-border">
-            <TableHead className="w-[30%]">Name</TableHead>
-            <TableHead>Priority</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Tags</TableHead>
-            <TableHead className="text-center">Est. price</TableHead>
-            <TableHead className="w-[1%] text-center">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
+          <TableHeader>
+            <TableRow className="border-border">
+              <TableHead className="w-[30%]">Name</TableHead>
+              <TableHead>Priority</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Tags</TableHead>
+              <TableHead className="text-center">Est. price</TableHead>
+              <TableHead className="w-[1%] text-center">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
 
-        <TableBody>
-          {items.map((item) => (
-            <TableRow key={item.id} className="border-border">
-              <TableCell className="font-medium">
-                <div className="flex flex-col">
-                  <span>{item.name}</span>
-                  {item.link && (
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-1 text-xs text-primary underline underline-offset-2"
-                    >
-                      View link
-                    </a>
-                  )}
-                </div>
-              </TableCell>
-
-              <TableCell>
-                <Badge variant="outline" className="text-xs">
-                  {item.priority}
-                </Badge>
-              </TableCell>
-
-              <TableCell>
-                <Tooltip>
-                  <TooltipTrigger onClick={() => onToggleStatus(item.id)}>
-                    <Badge
-                      variant={
-                        item.status === "bought" ? "outline" : "secondary"
-                      }
-                      className="text-xs hover:cursor-pointer"
-                    >
-                      {item.status}
-                    </Badge>
-                  </TooltipTrigger>
-                  <TooltipContent>Change status</TooltipContent>
-                </Tooltip>
-              </TableCell>
-
-              <TableCell>
-                {item.tags.length > 0 ? (
-                  <div className="flex flex-wrap gap-1">
-                    {item.tags.slice(0, 3).map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-muted px-2 py-0.5 text-[11px] text-muted-foreground"
+          <TableBody>
+            {items.map((item) => (
+              <TableRow key={item.id} className="border-border">
+                <TableCell className="font-medium">
+                  <div className="flex flex-col">
+                    <span>{item.name}</span>
+                    {item.link && (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-1 text-xs text-primary underline underline-offset-2"
                       >
-                        {tag}
-                      </span>
-                    ))}
-                    {item.tags.length > 3 && (
-                      <span className="text-[11px] text-muted-foreground">
-                        +{item.tags.length - 3}
-                      </span>
+                        View link
+                      </a>
                     )}
                   </div>
-                ) : (
-                  <span className="text-xs text-muted-foreground">—</span>
-                )}
-              </TableCell>
+                </TableCell>
 
-              <TableCell className="text-center">
-                <span className="text-xs text-foreground/80">
-                  {item.estimatedPrice !== undefined
-                    ? `$${item.estimatedPrice}`
-                    : "—"}
-                </span>
-              </TableCell>
+                <TableCell>
+                  <Badge variant="outline" className="text-xs">
+                    {item.priority}
+                  </Badge>
+                </TableCell>
 
-              <TableCell className="text-right">
-                <div className="flex justify-end gap-2">
-                  <WishlistFormDialog mode="edit" item={item} />
-                  <ConfirmDeleteDialog
-                    title="Delete wishlist item?"
-                    description="This item will be permanently removed from your wishlist."
-                    onConfirm={() => onDelete(item.id)}
-                    trigger={
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-xs text-muted-foreground hover:text-destructive"
+                <TableCell>
+                  <Tooltip>
+                    <TooltipTrigger onClick={() => onToggleStatus(item.id)}>
+                      <Badge
+                        variant={
+                          item.status === "bought" ? "outline" : "secondary"
+                        }
+                        className="text-xs hover:cursor-pointer"
                       >
-                        Delete
-                      </Button>
-                    }
-                  />
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+                        {item.status}
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent>Change status</TooltipContent>
+                  </Tooltip>
+                </TableCell>
+
+                <TableCell>
+                  {item.tags.length > 0 ? (
+                    <div className="flex flex-wrap gap-1">
+                      {item.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-muted px-2 py-0.5 text-[11px] text-muted-foreground"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                      {item.tags.length > 3 && (
+                        <span className="text-[11px] text-muted-foreground">
+                          +{item.tags.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  ) : (
+                    <span className="text-xs text-muted-foreground">—</span>
+                  )}
+                </TableCell>
+
+                <TableCell className="text-center">
+                  <span className="text-xs text-foreground/80">
+                    {item.estimatedPrice !== undefined
+                      ? `$${item.estimatedPrice}`
+                      : "—"}
+                  </span>
+                </TableCell>
+
+                <TableCell className="text-right">
+                  <div className="flex justify-end gap-2">
+                    <WishlistFormDialog mode="edit" item={item} />
+                    <ConfirmDeleteDialog
+                      title="Delete wishlist item?"
+                      description="This item will be permanently removed from your wishlist."
+                      onConfirm={() => onDelete(item.id)}
+                      trigger={
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-xs text-muted-foreground hover:text-destructive"
+                        >
+                          Delete
+                        </Button>
+                      }
+                    />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }
