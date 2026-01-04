@@ -111,7 +111,11 @@ export function ClothingFormDialog({ mode, item }: ClothingFormDialogProps) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button size="sm" variant={mode === "create" ? "default" : "ghost"}>
+        <Button
+          size="sm"
+          className="w-full sm:w-auto"
+          variant={mode === "create" ? "default" : "ghost"}
+        >
           {triggerLabel}
         </Button>
       </DialogTrigger>

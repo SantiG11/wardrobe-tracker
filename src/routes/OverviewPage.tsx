@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useWardrobe } from "@/hooks/useWardrobe";
 import { useWishlist } from "@/hooks/useWishList";
@@ -55,12 +56,10 @@ function OverviewPage() {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-tight ">Overview</h1>
-        <p className="text-sm text-muted-foreground">
-          Quick stats about your wardrobe and wishlist.
-        </p>
-      </div>
+      <PageHeader
+        title="Overview"
+        description="Quick stats about your wardrobe and wishlist."
+      />
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">

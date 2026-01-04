@@ -34,7 +34,7 @@ export function WardrobeTable({
   if (items.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
-        No clothes yer. Add your first item to start tracking your wardrobe.
+        No clothes yet. Add your first item to start tracking your wardrobe.
       </p>
     );
   }

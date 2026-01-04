@@ -8,6 +8,7 @@ import type {
   ClothingStatus,
   YearsOfUse,
 } from "@/types/wardrobe";
+import { PageHeader } from "@/components/PageHeader";
 
 type StatusFilter = "all" | ClothingStatus;
 type CategoryFilter = "all" | ClothingCategory;
@@ -105,16 +106,11 @@ function WardrobePage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Wardrobe</h1>
-          <p className="text-sm text-muted-foreground">
-            Track all your clothes in one place and filter them quickly.
-          </p>
-        </div>
-
-        <ClothingFormDialog mode="create" />
-      </div>
+      <PageHeader
+        title="Wardrobe"
+        description="Manage your clothes, tags, and status."
+        right={<ClothingFormDialog mode="create" />}
+      />
 
       <WardrobeFilters
         search={search}

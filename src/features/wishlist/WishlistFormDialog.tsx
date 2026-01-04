@@ -120,7 +120,11 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button size="sm" variant={mode === "create" ? "default" : "ghost"}>
+        <Button
+          size="sm"
+          className="w-full sm:w-auto"
+          variant={mode === "create" ? "default" : "ghost"}
+        >
           {triggerLabel}
         </Button>
       </DialogTrigger>

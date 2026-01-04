@@ -4,6 +4,7 @@ import { WishlistFilters } from "@/features/wishlist/WishlistFilters";
 import { WishlistTable } from "@/features/wishlist/WishlistTable";
 import type { WhishlistPriority } from "@/types/wardrobe";
 import { useWishlist } from "@/hooks/useWishList";
+import { PageHeader } from "@/components/PageHeader";
 
 type StatusFilter = "all" | "pending" | "bought";
 type PriorityFilter = "all" | WhishlistPriority;
@@ -101,16 +102,11 @@ function WishlistPage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Wishlist</h1>
-          <p className="text-sm text-muted-foreground">
-            Track what you want to buy and keep it organized.
-          </p>
-        </div>
-
-        <WishlistFormDialog mode="create" />
-      </div>
+      <PageHeader
+        title="Wishlist"
+        description="Track what you want to buy and keep it organized."
+        right={<WishlistFormDialog mode="create" />}
+      />
 
       <WishlistFilters
         search={search}
