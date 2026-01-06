@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+
 import { useWardrobe } from "@/hooks/useWardrobe";
 import { WardrobeTable } from "@/features/wardrobe/WardrobeTable";
 import { WardrobeFilters } from "@/features/wardrobe/WardrobeFilters";
@@ -9,6 +10,7 @@ import type {
   YearsOfUse,
 } from "@/types/wardrobe";
 import { PageHeader } from "@/components/PageHeader";
+import { ClothingDetailsDialog } from "@/features/wardrobe/ClothingDetailsDialog";
 
 type StatusFilter = "all" | ClothingStatus;
 type CategoryFilter = "all" | ClothingCategory;
@@ -30,6 +32,14 @@ function WardrobePage() {
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
   const [sortKey, setSortKey] = useState<SortKey>("name");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const selectedItem = useMemo(
+    () => items.find((i) => i.id === selectedId) ?? null,
+    [items, selectedId],
+  );
 
   const filteredAndSortedItems = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
@@ -132,6 +142,20 @@ function WardrobePage() {
         items={filteredAndSortedItems}
         onDelete={deleteItem}
         onToggleStatus={toggleStatus}
+        onRowClick={(item) => {
+          setSelectedId(item.id);
+          setDetailsOpen(true);
+        }}
+      />
+      <ClothingDetailsDialog
+        open={detailsOpen}
+        item={selectedItem}
+        onOpenChange={(open) => {
+          setDetailsOpen(open);
+          if (!open) setSelectedId(null);
+        }}
+        onToggleStatus={toggleStatus}
+        onDelete={deleteItem}
       />
     </div>
   );

@@ -19,17 +19,22 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 interface WardrobeTableProps {
   items: ClothingItem[];
   onDelete: (id: string) => void;
   onToggleStatus: (id: string) => void;
+  onRowClick: (item: ClothingItem) => void;
+  selectedId?: string | null;
 }
 
 export function WardrobeTable({
   items,
   onDelete,
   onToggleStatus,
+  onRowClick,
+  selectedId,
 }: WardrobeTableProps) {
   if (items.length === 0) {
     return (
@@ -58,7 +63,14 @@ export function WardrobeTable({
           </TableHeader>
           <TableBody>
             {items.map((item) => (
-              <TableRow key={item.id} className="border-border">
+              <TableRow
+                key={item.id}
+                onClick={() => onRowClick(item)}
+                className={cn(
+                  "border-border cursor-pointer hover:bg-muted/30",
+                  selectedId === item.id && "bg-muted/30",
+                )}
+              >
                 <TableCell className="font-medium">{item.name}</TableCell>
 
                 <TableCell className="font-medium">
@@ -69,7 +81,12 @@ export function WardrobeTable({
 
                 <TableCell>
                   <Tooltip>
-                    <TooltipTrigger onClick={() => onToggleStatus(item.id)}>
+                    <TooltipTrigger
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleStatus(item.id);
+                      }}
+                    >
                       <Badge
                         variant={
                           item.status === "clean" ? "outline" : "destructive"
@@ -110,21 +127,25 @@ export function WardrobeTable({
 
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <ClothingFormDialog mode="edit" item={item} />
-                    <ConfirmDeleteDialog
-                      title="Delete clothing item?"
-                      description="This item will be permanently removed from your wardrobe."
-                      onConfirm={() => onDelete(item.id)}
-                      trigger={
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-xs text-muted-foreground hover:text-destructive"
-                        >
-                          Delete
-                        </Button>
-                      }
-                    />
+                    <span onClick={(e) => e.stopPropagation()}>
+                      <ClothingFormDialog mode="edit" item={item} />
+                    </span>
+                    <span onClick={(e) => e.stopPropagation()}>
+                      <ConfirmDeleteDialog
+                        title="Delete clothing item?"
+                        description="This item will be permanently removed from your wardrobe."
+                        onConfirm={() => onDelete(item.id)}
+                        trigger={
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-xs text-muted-foreground hover:text-destructive"
+                          >
+                            Delete
+                          </Button>
+                        }
+                      />
+                    </span>
                   </div>
                 </TableCell>
               </TableRow>
