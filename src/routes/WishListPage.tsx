@@ -5,6 +5,7 @@ import { WishlistTable } from "@/features/wishlist/WishlistTable";
 import type { WhishlistPriority } from "@/types/wardrobe";
 import { useWishlist } from "@/hooks/useWishList";
 import { PageHeader } from "@/components/PageHeader";
+import { WishlistDetailsDialog } from "@/features/wishlist/WishlistDetailsDialog";
 
 type StatusFilter = "all" | "pending" | "bought";
 type PriorityFilter = "all" | WhishlistPriority;
@@ -26,6 +27,13 @@ function WishlistPage() {
   const [priorityFilter, setPriorityFilter] = useState<PriorityFilter>("all");
   const [sortKey, setSortKey] = useState<SortKey>("name");
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const selectedItem = useMemo(
+    () => items.find((i) => i.id === selectedId) ?? null,
+    [items, selectedId],
+  );
 
   const filteredAndSortedItems = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
@@ -128,6 +136,21 @@ function WishlistPage() {
         items={filteredAndSortedItems}
         onDelete={deleteItem}
         onToggleStatus={toggleStatus}
+        onRowClick={(item) => {
+          setSelectedId(item.id);
+          setDetailsOpen(true);
+        }}
+      />
+
+      <WishlistDetailsDialog
+        open={detailsOpen}
+        item={selectedItem}
+        onOpenChange={(open) => {
+          setDetailsOpen(open);
+          if (!open) setSelectedId(null);
+        }}
+        onToggleStatus={toggleStatus}
+        onDelete={deleteItem}
       />
     </div>
   );
