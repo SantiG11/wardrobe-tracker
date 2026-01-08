@@ -40,8 +40,8 @@ export function WishlistTable({
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-border bg-card/60">
-      <div className="min-w-[900px]">
+    <div className="overflow-x-auto px-2 sm:px-0 rounded-lg border border-border bg-card/60">
+      <div className="w-full">
         <Table>
           <TableCaption className="text-xs text-muted-foreground">
             Your wishlist items.
@@ -50,11 +50,15 @@ export function WishlistTable({
           <TableHeader>
             <TableRow className="border-border">
               <TableHead className="w-[30%]">Name</TableHead>
-              <TableHead>Priority</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Tags</TableHead>
-              <TableHead className="text-center">Est. price</TableHead>
-              <TableHead className="w-[1%] text-center">Actions</TableHead>
+              <TableHead className="hidden sm:table-cell">Priority</TableHead>
+              <TableHead className="hidden sm:table-cell">Status</TableHead>
+              <TableHead className="hidden sm:table-cell">Tags</TableHead>
+              <TableHead className=" text-right sm:text-center">
+                Est. price
+              </TableHead>
+              <TableHead className="w-[1%] text-center hidden sm:table-cell">
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
 
@@ -66,14 +70,14 @@ export function WishlistTable({
                 className="border-border cursor-pointer hover:bg-muted/30"
               >
                 <TableCell className="font-medium">
-                  <div className="flex flex-col">
+                  <div className="flex flex-col max-w-[220px] truncate">
                     <span>{item.name}</span>
                     {item.link && (
                       <a
                         href={item.link}
                         target="_blank"
                         rel="noreferrer"
-                        className="mt-1 text-xs text-primary underline underline-offset-2"
+                        className="mt-1 text-xs text-primary underline underline-offset-2 "
                       >
                         View link
                       </a>
@@ -81,13 +85,13 @@ export function WishlistTable({
                   </div>
                 </TableCell>
 
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   <Badge variant="outline" className="text-xs">
                     {item.priority}
                   </Badge>
                 </TableCell>
 
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   <Tooltip>
                     <TooltipTrigger
                       onClick={(e) => {
@@ -108,7 +112,7 @@ export function WishlistTable({
                   </Tooltip>
                 </TableCell>
 
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   {item.tags.length > 0 ? (
                     <div className="flex flex-wrap gap-1">
                       {item.tags.slice(0, 3).map((tag) => (
@@ -130,7 +134,7 @@ export function WishlistTable({
                   )}
                 </TableCell>
 
-                <TableCell className="text-center">
+                <TableCell className="text-right sm:text-center">
                   <span className="text-xs text-foreground/80">
                     {item.estimatedPrice !== undefined
                       ? `$${item.estimatedPrice}`
@@ -138,7 +142,7 @@ export function WishlistTable({
                   </span>
                 </TableCell>
 
-                <TableCell className="text-right">
+                <TableCell className="text-right hidden sm:table-cell">
                   <div className="flex justify-end gap-2">
                     <span onClick={(e) => e.stopPropagation()}>
                       <WishlistFormDialog mode="edit" item={item} />

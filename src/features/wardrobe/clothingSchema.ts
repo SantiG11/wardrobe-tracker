@@ -31,7 +31,7 @@ export const clothingCategories: { value: ClothingCategory; label: string }[] =
   ];
 
 export const clothingFormSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Name is required").max(40, "Max 40 characters"),
   category: z.string().min(1, "Category is required"),
   status: z.enum(["clean", "dirty"]),
   yearsOfUse: z.enum([

@@ -45,20 +45,26 @@ export function WardrobeTable({
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-border bg-card/60">
-      <div className="min-w-[900px]">
+    <div className="overflow-x-auto px-2 sm:px-0 rounded-lg border border-border bg-card/60">
+      <div className="w-full">
         <Table>
           <TableCaption className="text-xs text-muted-foreground">
             Your wardrobe items.
           </TableCaption>
           <TableHeader>
-            <TableRow className="border-border">
+            <TableRow className="border-border ">
               <TableHead className="w-[20%]">Name</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Years of use</TableHead>
-              <TableHead>Colors</TableHead>
-              <TableHead className="w-[1%] text-center">Actions</TableHead>
+              <TableHead className="text-right sm:text-left">
+                Category
+              </TableHead>
+              <TableHead className="hidden sm:table-cell">Status</TableHead>
+              <TableHead className="hidden sm:table-cell">
+                Years of use
+              </TableHead>
+              <TableHead className="hidden sm:table-cell">Colors</TableHead>
+              <TableHead className="hidden sm:table-cell w-[1%] text-center">
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -71,15 +77,17 @@ export function WardrobeTable({
                   selectedId === item.id && "bg-muted/30",
                 )}
               >
-                <TableCell className="font-medium">{item.name}</TableCell>
+                <TableCell className="max-w-[220px] truncate font-medium">
+                  {item.name}
+                </TableCell>
 
-                <TableCell className="font-medium">
+                <TableCell className="font-medium text-right sm:text-left">
                   <span className="text-xs md:text-sm text-muted-foreground">
                     {clothingCategoryLabelMap[item.category]}
                   </span>
                 </TableCell>
 
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   <Tooltip>
                     <TooltipTrigger
                       onClick={(e) => {
@@ -100,13 +108,13 @@ export function WardrobeTable({
                   </Tooltip>
                 </TableCell>
 
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   <span className="text-xs md:text-sm text-muted-foreground">
                     {yearsOfUseLabelMap[item.yearsOfUse]}
                   </span>
                 </TableCell>
 
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   {item.colors.length > 0 ? (
                     <div className="flex items-center gap-1">
                       {item.colors.map((color) => (
@@ -125,7 +133,7 @@ export function WardrobeTable({
                   )}
                 </TableCell>
 
-                <TableCell className="text-right">
+                <TableCell className="text-right hidden sm:table-cell">
                   <div className="flex justify-end gap-2">
                     <span onClick={(e) => e.stopPropagation()}>
                       <ClothingFormDialog mode="edit" item={item} />

@@ -19,7 +19,7 @@ const estimatedPriceSchema = z.preprocess((value) => {
 }, z.number().nonnegative().optional());
 
 export const wishlistFormSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1, "Name is required").max(40, "Max 40 characters"),
   link: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   estimatedPrice: estimatedPriceSchema,
   tagsText: z.string().optional(),
