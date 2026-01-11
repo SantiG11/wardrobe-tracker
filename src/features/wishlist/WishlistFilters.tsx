@@ -55,13 +55,13 @@ export function WishlistFilters(props: WishlistFiltersProps) {
           placeholder="Search by name..."
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="h-9"
+          className="h-7 md:h-9 text-sm "
         />
         <Input
           placeholder="Filter by tags..."
           value={tagSearch}
           onChange={(e) => onTagSearchChange(e.target.value)}
-          className="h-9 "
+          className="h-7 md:h-9 text-sm  "
         />
       </div>
 
@@ -70,13 +70,15 @@ export function WishlistFilters(props: WishlistFiltersProps) {
           value={priority}
           onValueChange={(value) => onPriorityChange(value as PriorityFilter)}
         >
-          <SelectTrigger className="h-9 w-full">
+          <SelectTrigger className=" w-full text-xs" size="sm">
             <SelectValue placeholder="Priority" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All priorities</SelectItem>
+            <SelectItem value="all" className="text-xs">
+              All priorities
+            </SelectItem>
             {priorityOptions.map((opt) => (
-              <SelectItem key={opt.value} value={opt.value}>
+              <SelectItem key={opt.value} value={opt.value} className="text-xs">
                 {opt.label}
               </SelectItem>
             ))}
@@ -87,13 +89,15 @@ export function WishlistFilters(props: WishlistFiltersProps) {
           value={status}
           onValueChange={(value) => onStatusChange(value as StatusFilter)}
         >
-          <SelectTrigger className="h-9 w-full">
+          <SelectTrigger className=" w-full text-xs" size="sm">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="all" className="text-xs">
+              All
+            </SelectItem>
             {statusOptions.map((opt) => (
-              <SelectItem key={opt.value} value={opt.value}>
+              <SelectItem key={opt.value} value={opt.value} className="text-xs">
                 {opt.label}
               </SelectItem>
             ))}
@@ -104,14 +108,22 @@ export function WishlistFilters(props: WishlistFiltersProps) {
           value={sortKey}
           onValueChange={(value) => onSortKeyChange(value as SortKey)}
         >
-          <SelectTrigger className="h-9 w-full">
+          <SelectTrigger className="h-9 w-full text-xs" size="sm">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="name">Name</SelectItem>
-            <SelectItem value="priority">Priority</SelectItem>
-            <SelectItem value="status">Status</SelectItem>
-            <SelectItem value="estimatedPrice">Estimated price</SelectItem>
+            <SelectItem value="name" className="text-xs">
+              Name
+            </SelectItem>
+            <SelectItem value="priority" className="text-xs">
+              Priority
+            </SelectItem>
+            <SelectItem value="status" className="text-xs">
+              Status
+            </SelectItem>
+            <SelectItem value="estimatedPrice" className="text-xs">
+              Estimated price
+            </SelectItem>
           </SelectContent>
         </Select>
 
@@ -121,19 +133,23 @@ export function WishlistFilters(props: WishlistFiltersProps) {
             onSortDirectionChange(value as SortDirection)
           }
         >
-          <SelectTrigger className="h-9 w-full">
+          <SelectTrigger className="h-9 w-full text-xs" size="sm">
             <SelectValue placeholder="Order" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="asc">Asc</SelectItem>
-            <SelectItem value="desc">Desc</SelectItem>
+            <SelectItem value="asc" className="text-xs">
+              Asc
+            </SelectItem>
+            <SelectItem value="desc" className="text-xs">
+              Desc
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>
       <Button
         variant="ghost"
         size="sm"
-        className="h-9 w-full sm:col-span-2 md:col-span-3 lg:col-span-1 lg:justify-self-end lg:w-auto text-xs text-muted-foreground"
+        className="h-7 bg-accent mt-3  sm:col-span-2 md:col-span-3 lg:col-span-1 lg:justify-self-end lg:w-auto text-xs text-muted-foreground"
         onClick={onClear}
       >
         Reset filters

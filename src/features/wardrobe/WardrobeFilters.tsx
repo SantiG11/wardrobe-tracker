@@ -53,13 +53,13 @@ export function WardrobeFilters({
           placeholder="Search by name..."
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="h-9 "
+          className="h-7 md:h-9 text-sm "
         />
         <Input
           placeholder="Filter by tags (e.g. sporty, cotton)"
           value={tagSearch}
           onChange={(e) => onTagSearchChange(e.target.value)}
-          className="h-9"
+          className="h-7 md:h-9 text-sm "
         />
       </div>
 
@@ -68,13 +68,15 @@ export function WardrobeFilters({
           value={category}
           onValueChange={(value) => onCategoryChange(value as CategoryFilter)}
         >
-          <SelectTrigger className="h-9 w-full">
+          <SelectTrigger className="h-5 md:h-9 w-full text-xs" size="sm">
             <SelectValue placeholder="Category" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All categories</SelectItem>
+            <SelectItem value="all" className="text-xs">
+              All categories
+            </SelectItem>
             {clothingCategories.map((opt) => (
-              <SelectItem key={opt.value} value={opt.value}>
+              <SelectItem key={opt.value} value={opt.value} className="text-xs">
                 {opt.label}
               </SelectItem>
             ))}
@@ -84,13 +86,19 @@ export function WardrobeFilters({
           value={status}
           onValueChange={(value) => onStatusChange(value as StatusFilter)}
         >
-          <SelectTrigger className="h-9 w-full ">
+          <SelectTrigger className="h-9 w-full text-xs py-1" size="sm">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Status</SelectItem>
-            <SelectItem value="clean">Clean</SelectItem>
-            <SelectItem value="dirty">Dirty</SelectItem>
+            <SelectItem value="all" className="text-xs">
+              All Status
+            </SelectItem>
+            <SelectItem value="clean" className="text-xs">
+              Clean
+            </SelectItem>
+            <SelectItem value="dirty" className="text-xs">
+              Dirty
+            </SelectItem>
           </SelectContent>
         </Select>
 
@@ -98,14 +106,22 @@ export function WardrobeFilters({
           value={sortKey}
           onValueChange={(value) => onSortKeyChange(value as SortKey)}
         >
-          <SelectTrigger className="h-9 w-full ">
+          <SelectTrigger className="h-9 w-full text-xs" size="sm">
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="name">Name</SelectItem>
-            <SelectItem value="category">Category</SelectItem>
-            <SelectItem value="status">Status</SelectItem>
-            <SelectItem value="yearsOfUse">Years of use</SelectItem>
+            <SelectItem value="name" className="text-xs">
+              Name
+            </SelectItem>
+            <SelectItem value="category" className="text-xs">
+              Category
+            </SelectItem>
+            <SelectItem value="status" className="text-xs">
+              Status
+            </SelectItem>
+            <SelectItem value="yearsOfUse" className="text-xs">
+              Years of use
+            </SelectItem>
           </SelectContent>
         </Select>
 
@@ -115,12 +131,16 @@ export function WardrobeFilters({
             onSortDirectionChange(value as SortDirection)
           }
         >
-          <SelectTrigger className="h-9 w-full ">
+          <SelectTrigger className="h-9 w-full text-xs" size="sm">
             <SelectValue placeholder="Order" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="asc">Asc</SelectItem>
-            <SelectItem value="desc">Desc</SelectItem>
+            <SelectItem value="asc" className="text-xs">
+              Asc
+            </SelectItem>
+            <SelectItem value="desc" className="text-xs">
+              Desc
+            </SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -128,7 +148,7 @@ export function WardrobeFilters({
       <Button
         variant="ghost"
         size="sm"
-        className="h-9 w-full sm:col-span-2 md:col-span-3 lg:col-span-1 lg:justify-self-end lg:w-auto text-xs text-muted-foreground"
+        className="h-7 bg-accent mt-3  sm:col-span-2 md:col-span-3 lg:col-span-1 lg:justify-self-end lg:w-auto text-xs text-muted-foreground"
         onClick={onClear}
       >
         Reset filters

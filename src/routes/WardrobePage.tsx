@@ -11,6 +11,7 @@ import type {
 } from "@/types/wardrobe";
 import { PageHeader } from "@/components/PageHeader";
 import { ClothingDetailsDialog } from "@/features/wardrobe/ClothingDetailsDialog";
+import { Button } from "@/components/ui/button";
 
 type StatusFilter = "all" | ClothingStatus;
 type CategoryFilter = "all" | ClothingCategory;
@@ -35,6 +36,8 @@ function WardrobePage() {
 
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const selectedItem = useMemo(
     () => items.find((i) => i.id === selectedId) ?? null,
@@ -122,21 +125,54 @@ function WardrobePage() {
         right={<ClothingFormDialog mode="create" />}
       />
 
-      <WardrobeFilters
-        search={search}
-        tagSearch={tagSearch}
-        status={statusFilter}
-        category={categoryFilter}
-        sortKey={sortKey}
-        sortDirection={sortDirection}
-        onSearchChange={setSearch}
-        onTagSearchChange={setTagSearch}
-        onStatusChange={setStatusFilter}
-        onCategoryChange={setCategoryFilter}
-        onSortKeyChange={setSortKey}
-        onSortDirectionChange={setSortDirection}
-        onClear={handleClearFilters}
-      />
+      <div className="sm:hidden">
+        <Button
+          variant="outline"
+          size="sm"
+          className="w-full"
+          onClick={() => setFiltersOpen((v) => !v)}
+        >
+          {filtersOpen ? "Hide filters" : "Show filters"}
+        </Button>
+
+        {filtersOpen ? (
+          <div className="mt-3">
+            <WardrobeFilters
+              search={search}
+              tagSearch={tagSearch}
+              status={statusFilter}
+              category={categoryFilter}
+              sortKey={sortKey}
+              sortDirection={sortDirection}
+              onSearchChange={setSearch}
+              onTagSearchChange={setTagSearch}
+              onStatusChange={setStatusFilter}
+              onCategoryChange={setCategoryFilter}
+              onSortKeyChange={setSortKey}
+              onSortDirectionChange={setSortDirection}
+              onClear={handleClearFilters}
+            />
+          </div>
+        ) : null}
+      </div>
+
+      <div className="hidden sm:block">
+        <WardrobeFilters
+          search={search}
+          tagSearch={tagSearch}
+          status={statusFilter}
+          category={categoryFilter}
+          sortKey={sortKey}
+          sortDirection={sortDirection}
+          onSearchChange={setSearch}
+          onTagSearchChange={setTagSearch}
+          onStatusChange={setStatusFilter}
+          onCategoryChange={setCategoryFilter}
+          onSortKeyChange={setSortKey}
+          onSortDirectionChange={setSortDirection}
+          onClear={handleClearFilters}
+        />
+      </div>
 
       <WardrobeTable
         items={filteredAndSortedItems}

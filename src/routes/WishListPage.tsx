@@ -6,6 +6,7 @@ import type { WhishlistPriority } from "@/types/wardrobe";
 import { useWishlist } from "@/hooks/useWishList";
 import { PageHeader } from "@/components/PageHeader";
 import { WishlistDetailsDialog } from "@/features/wishlist/WishlistDetailsDialog";
+import { Button } from "@/components/ui/button";
 
 type StatusFilter = "all" | "pending" | "bought";
 type PriorityFilter = "all" | WhishlistPriority;
@@ -29,6 +30,7 @@ function WishlistPage() {
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const selectedItem = useMemo(
     () => items.find((i) => i.id === selectedId) ?? null,
@@ -116,21 +118,54 @@ function WishlistPage() {
         right={<WishlistFormDialog mode="create" />}
       />
 
-      <WishlistFilters
-        search={search}
-        tagSearch={tagSearch}
-        status={statusFilter}
-        priority={priorityFilter}
-        sortKey={sortKey}
-        sortDirection={sortDirection}
-        onSearchChange={setSearch}
-        onTagSearchChange={setTagSearch}
-        onStatusChange={setStatusFilter}
-        onPriorityChange={setPriorityFilter}
-        onSortKeyChange={setSortKey}
-        onSortDirectionChange={setSortDirection}
-        onClear={handleClearFilters}
-      />
+      <div className="sm:hidden">
+        <Button
+          variant="outline"
+          size="sm"
+          className="w-full"
+          onClick={() => setFiltersOpen((v) => !v)}
+        >
+          {filtersOpen ? "Hide filters" : "Show filters"}
+        </Button>
+
+        {filtersOpen ? (
+          <div className="mt-3">
+            <WishlistFilters
+              search={search}
+              tagSearch={tagSearch}
+              status={statusFilter}
+              priority={priorityFilter}
+              sortKey={sortKey}
+              sortDirection={sortDirection}
+              onSearchChange={setSearch}
+              onTagSearchChange={setTagSearch}
+              onStatusChange={setStatusFilter}
+              onPriorityChange={setPriorityFilter}
+              onSortKeyChange={setSortKey}
+              onSortDirectionChange={setSortDirection}
+              onClear={handleClearFilters}
+            />
+          </div>
+        ) : null}
+      </div>
+
+      <div className="hidden sm:block">
+        <WishlistFilters
+          search={search}
+          tagSearch={tagSearch}
+          status={statusFilter}
+          priority={priorityFilter}
+          sortKey={sortKey}
+          sortDirection={sortDirection}
+          onSearchChange={setSearch}
+          onTagSearchChange={setTagSearch}
+          onStatusChange={setStatusFilter}
+          onPriorityChange={setPriorityFilter}
+          onSortKeyChange={setSortKey}
+          onSortDirectionChange={setSortDirection}
+          onClear={handleClearFilters}
+        />
+      </div>
 
       <WishlistTable
         items={filteredAndSortedItems}

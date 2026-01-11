@@ -20,7 +20,7 @@ export function PageHeader({ title, description, right }: PageHeaderProps) {
         ) : null}
       </div>
 
-      {right ? <div className="shrink-0 ">{right}</div> : null}
+      {right ? <div className="shrink-0 pt-2">{right}</div> : null}
     </div>
   );
 }
