@@ -42,9 +42,14 @@ type Mode = "create" | "edit";
 interface WishlistFormDialogProps {
   mode: Mode;
   item?: WishlistItem;
+  text?: string;
 }
 
-export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
+export function WishlistFormDialog({
+  mode,
+  item,
+  text,
+}: WishlistFormDialogProps) {
   const { addItem, updateItem } = useWishlist();
   const [open, setOpen] = useState(false);
 
@@ -125,7 +130,7 @@ export function WishlistFormDialog({ mode, item }: WishlistFormDialogProps) {
           className="w-full sm:w-auto"
           variant={mode === "create" ? "default" : "ghost"}
         >
-          {triggerLabel}
+          {text ? text : triggerLabel}
         </Button>
       </DialogTrigger>
 

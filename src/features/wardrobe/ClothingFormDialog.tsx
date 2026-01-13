@@ -40,9 +40,14 @@ type Mode = "create" | "edit";
 interface ClothingFormDialogProps {
   mode: Mode;
   item?: ClothingItem;
+  text?: string;
 }
 
-export function ClothingFormDialog({ mode, item }: ClothingFormDialogProps) {
+export function ClothingFormDialog({
+  mode,
+  item,
+  text,
+}: ClothingFormDialogProps) {
   const { addItem, updateItem } = useWardrobe();
   const [open, setOpen] = useState(false);
 
@@ -116,7 +121,7 @@ export function ClothingFormDialog({ mode, item }: ClothingFormDialogProps) {
           className="w-full sm:w-auto"
           variant={mode === "create" ? "default" : "ghost"}
         >
-          {triggerLabel}
+          {text ? text : triggerLabel}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">

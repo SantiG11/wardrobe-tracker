@@ -34,10 +34,12 @@ export function ClothingDetailsDialog({
         ) : (
           <>
             <DialogHeader>
-              <div className="flex items-start justify-between gap-3 my-5">
+              <div className="flex items-start justify-between gap-3 my-3">
                 <div className="space-y-1">
-                  <DialogTitle className="text-left">{item.name}</DialogTitle>
-                  <p className="text-xs text-muted-foreground">
+                  <DialogTitle className="text-left text-lg font-bold">
+                    {item.name}
+                  </DialogTitle>
+                  <p className="text-xs font-semibold text-muted-foreground">
                     {item.category} • {item.status} • {item.yearsOfUse}
                   </p>
                 </div>
@@ -103,7 +105,7 @@ export function ClothingDetailsDialog({
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-xs"
+                className="text-sm"
                 onClick={() => onToggleStatus(item.id)}
               >
                 {item.status === "clean" ? "Mark dirty" : "Mark clean"}
@@ -123,7 +125,7 @@ export function ClothingDetailsDialog({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-xs text-muted-foreground hover:text-destructive"
+                    className="text-sm text-muted-foreground hover:text-destructive"
                   >
                     Delete
                   </Button>

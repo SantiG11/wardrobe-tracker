@@ -36,8 +36,10 @@ export function WishlistDetailsDialog({
             <DialogHeader>
               <div className="flex items-start justify-between gap-3 my-5">
                 <div className="space-y-1">
-                  <DialogTitle className="text-base">{item.name}</DialogTitle>
-                  <p className="text-xs text-muted-foreground">
+                  <DialogTitle className="text-lg font-bold">
+                    {item.name}
+                  </DialogTitle>
+                  <p className="text-xs font-semibold text-muted-foreground">
                     {item.priority} • {item.status}
                     {item.estimatedPrice !== undefined
                       ? ` • $${item.estimatedPrice}`
@@ -86,7 +88,7 @@ export function WishlistDetailsDialog({
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-xs"
+                className="text-sm"
                 onClick={() => onToggleStatus(item.id)}
               >
                 {item.status === "pending" ? "Mark bought" : "Mark pending"}
@@ -106,7 +108,7 @@ export function WishlistDetailsDialog({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-xs text-muted-foreground hover:text-destructive"
+                    className="text-sm text-muted-foreground hover:text-destructive"
                   >
                     Delete
                   </Button>

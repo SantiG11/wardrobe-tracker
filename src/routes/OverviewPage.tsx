@@ -1,8 +1,10 @@
+import { OverviewHero } from "@/components/OverviewHero";
 import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useWardrobe } from "@/hooks/useWardrobe";
 import { useWishlist } from "@/hooks/useWishList";
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 const cardTitleStyles = "font-medium  underline";
 
@@ -56,16 +58,20 @@ function OverviewPage() {
 
   return (
     <div className="space-y-4">
+      <OverviewHero />
+
       <PageHeader
         title="Overview"
         description="Quick stats about your wardrobe and wishlist."
       />
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
-          Wardrobe
-        </h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Link to="/wardrobe">
+          <h2 className="text-sm py-2  inline-block hover:underline font-semibold text-muted-foreground uppercase tracking-wide">
+            Wardrobe
+          </h2>
+        </Link>
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           <Card className="gap-3">
             <CardHeader>
               <CardTitle className={cardTitleStyles}>Total clothes</CardTitle>
@@ -107,10 +113,12 @@ function OverviewPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
-          Wishlist
-        </h2>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Link to="/wishlist">
+          <h2 className="text-sm inline-block hover:underline py-2 font-semibold text-muted-foreground uppercase tracking-wide">
+            Wishlist
+          </h2>
+        </Link>
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
           <Card className="gap-3">
             <CardHeader>
               <CardTitle className={cardTitleStyles}>Wishlist items</CardTitle>
