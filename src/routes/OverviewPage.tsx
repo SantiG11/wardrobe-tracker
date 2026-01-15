@@ -6,7 +6,7 @@ import { useWishlist } from "@/hooks/useWishList";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 
-const cardTitleStyles = "font-medium  underline";
+const cardTitleStyles = "font-medium font-heading underline";
 
 function OverviewPage() {
   const { items: wardrobeItems } = useWardrobe();
@@ -67,7 +67,7 @@ function OverviewPage() {
 
       <section className="space-y-3">
         <Link to="/wardrobe">
-          <h2 className="text-sm py-2  inline-block hover:underline font-semibold text-muted-foreground uppercase tracking-wide">
+          <h2 className="text-sm py-2 font-heading inline-block hover:underline font-semibold text-muted-foreground uppercase tracking-wide">
             Wardrobe
           </h2>
         </Link>

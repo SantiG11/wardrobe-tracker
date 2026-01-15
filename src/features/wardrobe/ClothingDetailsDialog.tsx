@@ -36,7 +36,7 @@ export function ClothingDetailsDialog({
             <DialogHeader>
               <div className="flex items-start justify-between gap-3 my-3">
                 <div className="space-y-1">
-                  <DialogTitle className="text-left text-lg font-bold">
+                  <DialogTitle className="text-left text-xl font-heading font-bold">
                     {item.name}
                   </DialogTitle>
                   <p className="text-xs font-semibold text-muted-foreground">

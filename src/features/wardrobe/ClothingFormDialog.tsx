@@ -126,7 +126,7 @@ export function ClothingFormDialog({
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle className="font-heading font-bold">{title}</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>

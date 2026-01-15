@@ -2,6 +2,7 @@ import MobileNav from "@/components/MobileNav";
 import NavBar from "@/components/NavBar";
 import useIsMobile from "@/hooks/isMobile";
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -17,17 +18,21 @@ export function AppLayout({ children }: AppLayoutProps) {
   const isMobile = useIsMobile();
 
   return (
-    <div className="w-full bg-background text-foreground">
+    <div className="w-full bg-background text-foreground font-body">
       <header className="border-b border-border bg-card/60 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-semibold tracking-tight">
-              Virtual Wardrobe
-            </span>
-            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
-              MVP
-            </span>
-          </div>
+          <Link to="/">
+            <div className="flex items-center gap-2">
+              <img
+                src="/src/assets/wardrobe.png"
+                alt="wardrobe"
+                className="h-7 w-7"
+              />
+              <span className="text-lg font-heading font-extrabold tracking-tight">
+                Wardrobe Tracker
+              </span>
+            </div>
+          </Link>
           {isMobile ? (
             <MobileNav navLinks={navLinks} />
           ) : (

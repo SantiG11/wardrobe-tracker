@@ -53,16 +53,20 @@ export function WardrobeTable({
           </TableCaption>
           <TableHeader>
             <TableRow className="border-border ">
-              <TableHead className="w-[20%]">Name</TableHead>
-              <TableHead className="text-right sm:text-left">
+              <TableHead className="w-[20%] font-heading">Name</TableHead>
+              <TableHead className="text-right font-heading sm:text-left">
                 Category
               </TableHead>
-              <TableHead className="hidden sm:table-cell">Status</TableHead>
-              <TableHead className="hidden sm:table-cell">
+              <TableHead className="hidden font-heading sm:table-cell">
+                Status
+              </TableHead>
+              <TableHead className="hidden font-heading sm:table-cell">
                 Years of use
               </TableHead>
-              <TableHead className="hidden sm:table-cell">Colors</TableHead>
-              <TableHead className="hidden sm:table-cell w-[1%] text-center">
+              <TableHead className="hidden font-heading sm:table-cell">
+                Color
+              </TableHead>
+              <TableHead className="hidden font-heading sm:table-cell w-[1%] text-center">
                 Actions
               </TableHead>
             </TableRow>
@@ -109,7 +113,7 @@ export function WardrobeTable({
                 </TableCell>
 
                 <TableCell className="hidden sm:table-cell">
-                  <span className="text-xs md:text-sm text-muted-foreground">
+                  <span className="text-xs  md:text-sm text-muted-foreground">
                     {yearsOfUseLabelMap[item.yearsOfUse]}
                   </span>
                 </TableCell>

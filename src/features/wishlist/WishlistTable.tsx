@@ -49,11 +49,17 @@ export function WishlistTable({
 
           <TableHeader>
             <TableRow className="border-border">
-              <TableHead className="w-[30%]">Name</TableHead>
-              <TableHead className="hidden sm:table-cell">Priority</TableHead>
-              <TableHead className="hidden sm:table-cell">Status</TableHead>
-              <TableHead className="hidden sm:table-cell">Tags</TableHead>
-              <TableHead className=" text-right sm:text-center">
+              <TableHead className="w-[30%] font-heading">Name</TableHead>
+              <TableHead className="hidden font-heading sm:table-cell">
+                Priority
+              </TableHead>
+              <TableHead className="hidden font-heading sm:table-cell">
+                Status
+              </TableHead>
+              <TableHead className="hidden font-heading sm:table-cell">
+                Tags
+              </TableHead>
+              <TableHead className=" text-right font-heading sm:text-left">
                 Est. price
               </TableHead>
               <TableHead className="w-[1%] text-center hidden sm:table-cell">
@@ -134,7 +140,7 @@ export function WishlistTable({
                   )}
                 </TableCell>
 
-                <TableCell className="text-right sm:text-center">
+                <TableCell className="text-right sm:text-left">
                   <span className="text-xs text-foreground/80">
                     {item.estimatedPrice !== undefined
                       ? `$${item.estimatedPrice}`

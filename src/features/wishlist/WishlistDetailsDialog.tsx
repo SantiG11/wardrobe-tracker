@@ -36,7 +36,7 @@ export function WishlistDetailsDialog({
             <DialogHeader>
               <div className="flex items-start justify-between gap-3 my-5">
                 <div className="space-y-1">
-                  <DialogTitle className="text-lg font-bold">
+                  <DialogTitle className="text-xl font-heading font-bold">
                     {item.name}
                   </DialogTitle>
                   <p className="text-xs font-semibold text-muted-foreground">

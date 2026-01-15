@@ -136,7 +136,7 @@ export function WishlistFormDialog({
 
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle className="font-heading font-bold">{title}</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>

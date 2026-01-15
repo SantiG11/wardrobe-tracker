@@ -4,11 +4,11 @@ import { WishlistFormDialog } from "@/features/wishlist/WishlistFormDialog";
 export function OverviewHero() {
   return (
     <div className="space-y-4 my-32   flex flex-col items-center">
-      <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-        Virtual Wardrobe
+      <h1 className="text-4xl font-heading font-bold tracking-tight sm:text-5xl">
+        Wardrobe Tracker
       </h1>
 
-      <p className="max-w-2xl text-center font-semibold text-sm text-muted-foreground">
+      <p className="max-w-2xl  font-semibold text-center  text-sm text-muted-foreground">
         Organize your clothes, track what you own, and plan future purchases in
         one simple place.
       </p>
