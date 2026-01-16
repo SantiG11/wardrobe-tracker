@@ -1,4 +1,3 @@
-import { useWardrobe } from "@/hooks/useWardrobe";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -34,6 +33,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import type { ClothingItem } from "@/types/wardrobe";
 import { useState } from "react";
+import { useWardrobe } from "@/providers/WardrobeProvider";
 
 type Mode = "create" | "edit";
 

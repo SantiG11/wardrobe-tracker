@@ -35,7 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useWishlist } from "@/hooks/useWishList";
+import { useWishlist } from "@/providers/WishlistProvider";
 
 type Mode = "create" | "edit";
 

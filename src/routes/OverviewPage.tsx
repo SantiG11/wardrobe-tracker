@@ -1,8 +1,9 @@
 import { OverviewHero } from "@/components/OverviewHero";
 import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWardrobe } from "@/hooks/useWardrobe";
-import { useWishlist } from "@/hooks/useWishList";
+import { useWardrobe } from "@/providers/WardrobeProvider";
+import { useWishlist } from "@/providers/WishlistProvider";
+
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 

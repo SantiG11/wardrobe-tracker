@@ -3,10 +3,11 @@ import { WishlistFormDialog } from "@/features/wishlist/WishlistFormDialog";
 import { WishlistFilters } from "@/features/wishlist/WishlistFilters";
 import { WishlistTable } from "@/features/wishlist/WishlistTable";
 import type { WhishlistPriority } from "@/types/wardrobe";
-import { useWishlist } from "@/hooks/useWishList";
+
 import { PageHeader } from "@/components/PageHeader";
 import { WishlistDetailsDialog } from "@/features/wishlist/WishlistDetailsDialog";
 import { Button } from "@/components/ui/button";
+import { useWishlist } from "@/providers/WishlistProvider";
 
 type StatusFilter = "all" | "pending" | "bought";
 type PriorityFilter = "all" | WhishlistPriority;

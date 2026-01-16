@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 
-import { useWardrobe } from "@/hooks/useWardrobe";
 import { WardrobeTable } from "@/features/wardrobe/WardrobeTable";
 import { WardrobeFilters } from "@/features/wardrobe/WardrobeFilters";
 import { ClothingFormDialog } from "@/features/wardrobe/ClothingFormDialog";
@@ -12,6 +11,7 @@ import type {
 import { PageHeader } from "@/components/PageHeader";
 import { ClothingDetailsDialog } from "@/features/wardrobe/ClothingDetailsDialog";
 import { Button } from "@/components/ui/button";
+import { useWardrobe } from "@/providers/WardrobeProvider";
 
 type StatusFilter = "all" | ClothingStatus;
 type CategoryFilter = "all" | ClothingCategory;
