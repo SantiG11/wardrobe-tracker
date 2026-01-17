@@ -51,7 +51,7 @@ export function ClothingFormDialog({
   const { addItem, updateItem } = useWardrobe();
   const [open, setOpen] = useState(false);
 
-  const form = useForm<ClothingFormValues, any, ClothingFormValues>({
+  const form = useForm<ClothingFormValues>({
     resolver: zodResolver(clothingFormSchema),
     defaultValues: {
       name: item?.name ?? "",
@@ -59,7 +59,7 @@ export function ClothingFormDialog({
       status: item?.status ?? "clean",
       yearsOfUse: item?.yearsOfUse ?? "less-than-a-year",
       tagsText: item?.tags.join(", ") ?? "",
-      color: item?.colors[0] ?? "#000000",
+      color: item?.colors?.[0] ?? "#000000",
       notes: item?.notes ?? "",
     },
   });

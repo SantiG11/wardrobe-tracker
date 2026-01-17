@@ -40,7 +40,7 @@ export const clothingFormSchema = z.object({
     "more-than-three-years",
   ] as const),
   tagsText: z.string().optional(),
-  color: z.string().min(1).default("#000000"),
+  color: z.string().min(1, "Color is required"),
   notes: z.string().optional(),
 });
 

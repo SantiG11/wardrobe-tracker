@@ -33,7 +33,7 @@ export function WishlistTable({
 }: WishlistTableProps) {
   if (items.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p className="text-sm text-muted-foreground px-2">
         No wishlist items match your current filters.
       </p>
     );

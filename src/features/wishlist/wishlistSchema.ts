@@ -12,19 +12,27 @@ export const statusOptions = [
   { value: "bought", label: "Bought" },
 ];
 
-const estimatedPriceSchema = z.preprocess((value) => {
-  if (value === "" || value === undefined || value === null) return undefined;
-  const num = Number(value);
-  return Number.isNaN(num) ? undefined : num;
-}, z.number().nonnegative().optional());
+const estimatedPriceSchema = z
+  .string()
+  .optional()
+  .refine(
+    (v) => {
+      if (v === undefined) return true;
+      const trimmed = v.trim();
+      if (trimmed === "") return true;
+      const n = Number(trimmed);
+      return Number.isFinite(n) && n >= 0;
+    },
+    { message: "Must be a non-negative number" },
+  );
 
 export const wishlistFormSchema = z.object({
   name: z.string().min(1, "Name is required").max(40, "Max 40 characters"),
-  link: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  link: z.union([z.string().url("Must be a valid URL"), z.literal("")]),
   estimatedPrice: estimatedPriceSchema,
   tagsText: z.string().optional(),
-  priority: z.enum(["low", "medium", "high"]).default("low"),
-  status: z.enum(["pending", "bought"]).default("pending"),
+  priority: z.enum(["low", "medium", "high"]),
+  status: z.enum(["pending", "bought"]),
 });
 
 export type WishlistFormValues = z.infer<typeof wishlistFormSchema>;

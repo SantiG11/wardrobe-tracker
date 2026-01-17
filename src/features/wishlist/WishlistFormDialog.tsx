@@ -53,12 +53,13 @@ export function WishlistFormDialog({
   const { addItem, updateItem } = useWishlist();
   const [open, setOpen] = useState(false);
 
-  const form = useForm<WishlistFormValues, any, WishlistFormValues>({
+  const form = useForm<WishlistFormValues>({
     resolver: zodResolver(wishlistFormSchema),
     defaultValues: {
       name: item?.name ?? "",
       link: item?.link ?? "",
-      estimatedPrice: item?.estimatedPrice,
+      estimatedPrice:
+        item?.estimatedPrice !== undefined ? String(item.estimatedPrice) : "",
       priority: item?.priority ?? "medium",
       status: item?.status ?? "pending",
       tagsText: item?.tags.join(", ") ?? "",
@@ -76,7 +77,8 @@ export function WishlistFormDialog({
       form.reset({
         name: item.name,
         link: item.link ?? "",
-        estimatedPrice: item.estimatedPrice,
+        estimatedPrice:
+          item.estimatedPrice !== undefined ? String(item.estimatedPrice) : "",
         priority: item.priority,
         status: item.status,
         tagsText: item.tags.join(", "),
@@ -88,7 +90,7 @@ export function WishlistFormDialog({
       form.reset({
         name: "",
         link: "",
-        estimatedPrice: undefined,
+        estimatedPrice: "",
         priority: "medium",
         status: "pending",
         tagsText: "",
@@ -103,10 +105,17 @@ export function WishlistFormDialog({
         .map((t) => t.trim())
         .filter(Boolean) ?? [];
 
+    const parsedPrice = (() => {
+      const raw = values.estimatedPrice?.trim();
+      if (!raw) return undefined;
+      const n = Number(raw);
+      return Number.isFinite(n) ? n : undefined;
+    })();
+
     const baseData: Omit<WishlistItem, "id"> = {
       name: values.name,
       link: values.link || undefined,
-      estimatedPrice: values.estimatedPrice,
+      estimatedPrice: parsedPrice,
       tags,
       priority: values.priority,
       status: values.status,

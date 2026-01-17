@@ -2,7 +2,7 @@ import { createContext, useContext, type ReactNode } from "react";
 import type { WishlistItem } from "@/types/wardrobe";
 import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 
-const STORAGE_KEY = "whishlist-items";
+const STORAGE_KEY = "wishlist-items";
 
 type WishlistContextValue = {
   items: WishlistItem[];
