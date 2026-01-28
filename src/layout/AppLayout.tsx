@@ -3,7 +3,7 @@ import NavBar from "@/components/NavBar";
 import useIsMobile from "@/hooks/isMobile";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-
+import WardrobeIcon from "/favicon.png";
 interface AppLayoutProps {
   children: ReactNode;
 }
@@ -23,11 +23,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
           <Link to="/">
             <div className="flex items-center gap-2">
-              <img
-                src="/src/assets/wardrobe.png"
-                alt="wardrobe"
-                className="h-7 w-7"
-              />
+              <img src={WardrobeIcon} alt="wardrobe" className="h-7 w-7" />
               <span className="text-lg font-heading font-extrabold tracking-tight">
                 Wardrobe Tracker
               </span>
